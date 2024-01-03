@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import errorHandlerMiddleware from "./middlewares/error-handler.middleware.js";
+import authorizationMiddleware from "./middlewares/authorization.middleware.js";
 
 import dotenv from "dotenv";
 
@@ -19,6 +20,8 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors({ origin: "*" }));
+
+app.use(authorizationMiddleware);
 
 // authorization
 

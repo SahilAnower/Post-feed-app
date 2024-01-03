@@ -23,6 +23,39 @@ export const getAllComments = async (
   }
 };
 
+export const searchComments = async (searchString) => {
+  try {
+    let res = await commentsCollection.aggregate([
+      {
+        $match: {
+          $or: [{ content: { $regex: searchString, $options: "i" } }],
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "user",
+          foreignField: "_id",
+          as: "userData",
+        },
+      },
+      {
+        $addFields: {
+          user: "$userData",
+        },
+      },
+      {
+        $project: {
+          userData: 0,
+        },
+      },
+    ]);
+    return res;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const updateComment = async (searchPayload, updatePayload) => {
   try {
     const res = await commentsCollection.findOneAndUpdate(
