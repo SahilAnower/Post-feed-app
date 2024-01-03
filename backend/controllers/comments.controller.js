@@ -4,7 +4,7 @@ import {
   deleteComment,
   getAllComments,
   updateComment,
-} from "../models/comment.model";
+} from "../models/comment.model.js";
 
 const router = express.Router();
 

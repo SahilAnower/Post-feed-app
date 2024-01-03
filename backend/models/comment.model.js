@@ -1,11 +1,4 @@
-import { CommentSchema } from "../schemas/Comment.js";
-import mongodbConnection from "../utils/mongo-db.util";
-
-const dbName = process.env.DB;
-
-const feedAppDb = mongodbConnection.useDb(dbName);
-
-const commentsCollection = feedAppDb.model("Comment", CommentSchema);
+import { commentsCollection } from "../utils/collections.util.js";
 
 export const createComment = async (payload) => {
   try {

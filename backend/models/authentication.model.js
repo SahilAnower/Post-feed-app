@@ -1,14 +1,4 @@
-import mongodbConnection from "../utils/mongo-db.util";
-import { AuthenticationSchema } from "../schemas/Authentication";
-
-const dbName = process.env.DB;
-
-const feedAppDb = mongodbConnection.useDb(dbName);
-
-const authenticationCollection = feedAppDb.model(
-  "Authentication",
-  AuthenticationSchema
-);
+import { authenticationCollection } from "../utils/collections.util.js";
 
 export const createAuthentication = async (payload) => {
   try {

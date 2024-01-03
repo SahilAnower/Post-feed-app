@@ -2,11 +2,12 @@ import {
   createAuthentication,
   findAuthentication,
   updateAuthentication,
-} from "../models/authentication.model";
-import { createUser } from "../models/user.model";
-import { generateToken } from "../utils/jwt.util";
-import { findUserByEmail } from "./users.service";
+} from "../models/authentication.model.js";
+import { createUser } from "../models/user.model.js";
+import { generateToken } from "../utils/jwt.util.js";
+import { findUserByEmail } from "./users.service.js";
 import bcrypt from "bcrypt";
+import moment from "moment/moment.js";
 
 export const authSignup = async (payload) => {
   try {
@@ -129,7 +130,7 @@ export const validateTokenCredentials = async (email, password) => {
     }
     const userCredentials = await findAuthentication({ email });
 
-    if (!(userCredentials && userCredentials.password)) {
+    if (!userCredentials) {
       return;
     }
 

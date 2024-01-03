@@ -6,6 +6,8 @@ import commentsController from "./comments.controller.js";
 export const routes = (app, express) => {
   const router = express.Router();
 
+  //   console.log("here");
+
   router.get("/", (req, res) => {
     return res
       .status(200)

@@ -1,11 +1,4 @@
-import { UserSchema } from "../schemas/User.js";
-import mongodbConnection from "../utils/mongo-db.util.js";
-
-const dbName = process.env.DB;
-
-const feedAppDb = mongodbConnection.useDb(dbName);
-
-const usersCollection = feedAppDb.model("User", UserSchema);
+import { usersCollection } from "../utils/collections.util.js";
 
 export const createUser = async (payload) => {
   try {

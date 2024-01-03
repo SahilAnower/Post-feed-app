@@ -6,13 +6,13 @@ export const CommentSchema = new mongoose.Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
     },
-    postId: {
-      type: Schema.Types.ObjectId,
-      ref: "Post",
-    },
     content: {
       type: String,
       required: true,
+    },
+    post: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Post",
     },
   },
   { timestamps: true }

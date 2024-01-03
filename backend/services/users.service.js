@@ -1,4 +1,4 @@
-import { getUser } from "../models/user.model";
+import { getUser } from "../models/user.model.js";
 
 export const findUserByEmail = async (email) => {
   try {

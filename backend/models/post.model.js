@@ -1,11 +1,4 @@
-import { PostSchema } from "../schemas/Post";
-import mongodbConnection from "../utils/mongo-db.util";
-
-const dbName = process.env.DB;
-
-const feedAppDb = mongodbConnection.useDb(dbName);
-
-const postsCollection = feedAppDb.model("Post", PostSchema);
+import { postsCollection } from "../utils/collections.util.js";
 
 export const createPost = async (payload) => {
   try {
@@ -22,7 +15,27 @@ export const getAllPosts = async (
   filterPayload = null
 ) => {
   try {
-    const res = await postsCollection.find(searchPayload, filterPayload);
+    const res = await postsCollection
+      .find(searchPayload, filterPayload)
+      .populate("userId", "name email")
+      .populate({
+        path: "comments",
+        populate: {
+          path: "userId",
+          select: "name email",
+          model: "User",
+        },
+      })
+      .populate({
+        path: "comments",
+        select: "content createdAt updatedAt",
+      })
+      .then((posts) => {
+        return posts;
+      })
+      .catch((error) => {
+        throw error;
+      });
     if (!res) return;
     return res;
   } catch (error) {

@@ -1,6 +1,6 @@
 import express from "express";
-import { authSignin, authSignup } from "../services/authentication.service";
-import { findUserByEmail } from "../services/users.service";
+import { authSignin, authSignup } from "../services/authentication.service.js";
+import { findUserByEmail } from "../services/users.service.js";
 
 const router = express.Router();
 
@@ -18,7 +18,7 @@ router.post("/login", async (req, res, next) => {
     const response = await authSignin(req.body);
     return res.status(200).json(response);
   } catch (error) {
-    throw error;
+    next(error);
   }
 });
 
@@ -34,7 +34,7 @@ router.get("/user", async (req, res, next) => {
     }
     return res.status(200).send({ message: "User found" });
   } catch (error) {
-    throw error;
+    next(error);
   }
 });
 
